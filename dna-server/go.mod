@@ -1,4 +1,4 @@
-module github.com/wizegene/wizechain/dna-server
+module github.com/WizegeneFoundation/wizechain/dna-server
 
 go 1.15
 

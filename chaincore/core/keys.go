@@ -1,20 +1,17 @@
-package crypto
+package core
 
 import (
 	slip10 "github.com/lmars/go-slip10"
 )
 
-func createSeedForKey() ([]byte, error) {
+func CreateSeedForKey() ([]byte, error) {
 	// todo persist seed
 	seed, err := slip10.NewSeed()
 	return seed, err
 }
 
-func CreateMasterKey() *slip10.Key {
-	keySeed, err := createSeedForKey()
-	if err != nil {
-		panic(err)
-	}
+func CreateMasterKey(keySeed []byte) *slip10.Key {
+
 	masterKey, _ := slip10.NewMasterKeyWithCurve(keySeed, slip10.CurveP256)
 	return masterKey
 
