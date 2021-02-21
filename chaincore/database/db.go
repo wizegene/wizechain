@@ -8,12 +8,12 @@ import (
 var db *badger.DB
 var err error
 
-func init() {
-	db, err = badger.Open(badger.DefaultOptions(config.BadgerDBDir))
+func InitDB(dbDir string) *badger.DB {
+	db, err = badger.Open(badger.DefaultOptions(config.BadgerDBDir + "/" + dbDir))
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
+	return db
 }
 
 type Database struct {

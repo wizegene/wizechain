@@ -30,3 +30,7 @@ func GetChildPubKey(childKey *slip10.Key) *slip10.Key {
 	pub := childKey.PublicKey()
 	return pub
 }
+
+func verifyKey(data string) (*slip10.Key, error) {
+	return slip10.B58Deserialize(data)
+}
