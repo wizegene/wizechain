@@ -3,14 +3,11 @@ module github.com/wizegene/wizechain/dna-server
 go 1.15
 
 require (
-	github.com/BluntSporks/readability v0.0.0-20170405091137-6f1eb9729696
-	github.com/davecgh/go-spew v1.1.1
-	github.com/ipfs/go-datastore v0.4.5
-	github.com/ipfs/go-ds-leveldb v0.4.2
-	github.com/ipfs/go-ipfs-addr v0.0.1
-	github.com/libp2p/go-libp2p-core v0.8.5
-	github.com/mb-14/gomarkov v0.0.0-20210216094942-a5b484cc0243
-	github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1
-	github.com/mitchellh/go-homedir v1.1.0
-	github.com/mtso/syllables v0.1.0 // indirect
+	github.com/golang/protobuf v1.4.3
+	golang.org/x/net v0.0.0-20210220033124-5f55cee0dc0d // indirect
+	golang.org/x/sys v0.0.0-20210220050731-9a76102bfb43 // indirect
+	golang.org/x/text v0.3.5 // indirect
+	google.golang.org/genproto v0.0.0-20210219173056-d891e3cb3b5b // indirect
+	google.golang.org/grpc v1.35.0
+	google.golang.org/protobuf v1.25.0
 )

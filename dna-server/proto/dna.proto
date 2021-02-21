@@ -1,0 +1,40 @@
+syntax="proto3";
+
+option go_package =  "github.com/WizegeneFoundation/Wizechain/dna-server;dna-server";
+
+
+message DNA {
+  string id = 1;
+  string a = 2;
+  string o = 3;
+  string D = 4;
+  string t = 5;
+}
+
+message DNARequest {
+  string id = 1;
+  float mutationRate = 2;
+  string target = 3;
+}
+
+message DNAResponse {
+  string id = 1;
+  DNA dna = 2;
+  bool error = 3;
+  string errormessage = 4;
+}
+
+message ValidateDNARequest {
+  string dnaString = 1;
+  string original_target = 2;
+}
+
+message ValidateDNAResponse {
+  bool valid = 1;
+}
+
+service DnaGeneratorService {
+
+  rpc GetDNA(DNARequest) returns (DNAResponse);
+  rpc ValidateDNA(ValidateDNARequest) returns (ValidateDNAResponse);
+}
