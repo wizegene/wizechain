@@ -1,6 +1,6 @@
 syntax="proto3";
 
-option go_package =  "github.com/WizegeneFoundation/Wizechain/dna-server;dna-server";
+option go_package =  "dna-server";
 
 
 message DNA {

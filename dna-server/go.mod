@@ -1,4 +1,4 @@
-module github.com/WizegeneFoundation/wizechain/dna-server
+module dna-server
 
 go 1.15
 
@@ -6,7 +6,7 @@ require (
 	github.com/cmars/basen v0.0.0-20150613233007-fe3947df716e // indirect
 	github.com/davecgh/go-spew v1.1.0
 	github.com/golang/protobuf v1.4.3
-	github.com/lmars/go-slip10 v0.0.0-20190606092855-400ba44fee12
+	github.com/lmars/go-slip10 v0.0.0-20190606092855-400ba44fee12 // indirect
 	github.com/mb-14/gomarkov v0.0.0-20210216094942-a5b484cc0243
 	github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1
 	golang.org/x/net v0.0.0-20210220033124-5f55cee0dc0d // indirect
