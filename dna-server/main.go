@@ -2,12 +2,14 @@ package main
 
 import (
 	"context"
+	"github.com/wizegene/wizechain/dna-server/crypto"
 	pb "github.com/wizegene/wizechain/dna-server/proto"
 	"google.golang.org/grpc"
 	"net"
+	"runtime"
 )
 
-type DNAServer struct { pb.DnaGeneratorServiceServer }
+type DNAServer struct{ pb.DnaGeneratorServiceServer }
 
 func NewServer() *DNAServer {
 	return new(DNAServer)
@@ -31,9 +33,12 @@ var host = ":10000"
 
 func main() {
 
+	runtime.GOMAXPROCS(5)
+	crypto.GetDNA(5000)
+
 	lis, err := net.Listen("tcp", host)
 	if err != nil {
-		panic(err);
+		panic(err)
 	}
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)
