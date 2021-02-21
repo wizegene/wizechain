@@ -1,17 +1,20 @@
 package core
 
-/*
-This is the main file to generate the wizechain blockchain
-*/
-
 import "C"
 import (
+	_ "chaincore/config"
 	db "chaincore/database"
 	"time"
 )
 
 var masterSeed []byte
 var err error
+
+type Wizechain struct {
+	ID        string
+	Chaincode string
+	Version   string
+}
 
 func initNewChain(id string, chaincode string, version string) {
 	ChainDB := db.InitDB(id + "/" + chaincode + "_" + version)
