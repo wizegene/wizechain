@@ -23,6 +23,8 @@ type ICoinbase interface {
 	haveCoinsInCache(txID string) bool
 	accessCoinsFromCache(txID string) []CoinCacheEntry
 	applyInternalFeePolicy()
+	AddCoin(outPoint int, coin Coin, possibleOverwrite bool)
+
 	_addCoinbaseTX()
 	_getCoinbaseTX(txID string)
 	_mint()

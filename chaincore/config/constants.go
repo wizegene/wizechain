@@ -5,7 +5,7 @@ const (
 	Prefix       = 0x6A23
 	LivePrefix   = 0x6A2322
 	TestPrefix   = 0x6A2321
-	LocalPrefix  = 0x6A23ff
+	LocalPrefix  = "6A23"
 	ChainName    = "Wizechain"
 	ChainVersion = "v0.0.1"
 	Currency     = "WIZECOIN"

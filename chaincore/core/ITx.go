@@ -1,6 +1,8 @@
 package core
 
-import "sync"
+import (
+	"sync"
+)
 
 type ITransaction interface {
 	isCoinbase() bool
@@ -16,4 +18,21 @@ type Outputs struct {
 }
 
 type Inputs struct {
+}
+
+type Outpoint struct {
+	Hash []byte
+	n    uint32
+}
+
+// NewOutpoint ...
+func NewOutpoint(hashIn []byte, nIn uint32) *Outpoint {
+	return &Outpoint{
+		Hash: hashIn,
+		n:    nIn,
+	}
+}
+
+func (o *Outpoint) Serialize() {
+
 }
