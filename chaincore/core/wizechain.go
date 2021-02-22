@@ -1,26 +1,27 @@
 package core
 
-
 import (
-
 	db "chaincore/database"
 	"sync"
 	"time"
-
 )
 
 var masterSeed []byte
 var err error
 
 type Wizechain struct {
-	mu *sync.Mutex
-	ID        string
-	Chaincode string
-	Version   string
+	mu           *sync.Mutex
+	ID           string
+	Chaincode    string
+	Version      string
+	Blocks       []*Block
+	BlockHeaders []*BlockHeader
+	memPool      map[uint32][]byte
 	IWizechain
 }
 
 type IWizechain interface {
+	authorize()
 	initNewChain(id string, chaincode string, version string)
 	GetGenesis()
 	SetGenesis()
@@ -38,7 +39,7 @@ type IWizechain interface {
 	validate() bool
 	sync()
 	getValidators()
-
+	getMedianTXTime()
 }
 
 func NewWizeChain() *Wizechain {
