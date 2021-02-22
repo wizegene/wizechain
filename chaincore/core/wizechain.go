@@ -16,7 +16,7 @@ type Wizechain struct {
 	Version      string
 	Blocks       []*Block
 	BlockHeaders []*BlockHeader
-	memPool      map[uint32][]byte
+	memPool      map[string][]byte
 	IWizechain
 }
 
@@ -43,7 +43,10 @@ type IWizechain interface {
 }
 
 func NewWizeChain() *Wizechain {
-	return &Wizechain{}
+	mempool := make(map[string][]byte, 0)
+	return &Wizechain{
+		memPool: mempool,
+	}
 }
 
 func (w *Wizechain) initNewChain(id string, chaincode string, version string) {
@@ -52,11 +55,14 @@ func (w *Wizechain) initNewChain(id string, chaincode string, version string) {
 	defer ChainDB.Close()
 	db.Insert([]byte("_chain__initialization_time"), []byte(time.Now().String()))
 	masterSeed, err = CreateSeedForKey()
+	w.memPool["master_seed"] = masterSeed
 	if err != nil {
 		panic(err)
 	}
 
 	masterKey := CreateMasterKey(masterSeed)
+	w.memPool["master_key"] = []byte(masterKey.B58Serialize())
+
 	ms := masterKey.FingerPrint
 	db.Insert([]byte("_chain__master_key_genesis"), ms)
 	dna := GetDNA(5000)
