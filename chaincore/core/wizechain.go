@@ -57,8 +57,8 @@ func (w *Wizechain) initNewChain(id string, chaincode string, version string) {
 	}
 
 	masterKey := CreateMasterKey(masterSeed)
-	ms := masterKey.B58Serialize()
-	db.Insert([]byte("_chain__master_key_genesis"), []byte(ms))
+	ms := masterKey.FingerPrint
+	db.Insert([]byte("_chain__master_key_genesis"), ms)
 	dna := GetDNA(5000)
 	db.Insert([]byte("_chain__master_dna_genesis"), dna.D)
 
