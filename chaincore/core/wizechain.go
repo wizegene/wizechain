@@ -46,7 +46,7 @@ func NewWizeChain() *Wizechain {
 	return &Wizechain{}
 }
 
-func initNewChain(id string, chaincode string, version string) {
+func (w *Wizechain) initNewChain(id string, chaincode string, version string) {
 	ChainDB := db.InitDB(id + "/" + chaincode + "_" + version)
 
 	defer ChainDB.Close()
@@ -61,6 +61,26 @@ func initNewChain(id string, chaincode string, version string) {
 	db.Insert([]byte("_chain__master_key_genesis"), []byte(ms))
 	dna := GetDNA(5000)
 	db.Insert([]byte("_chain__master_dna_genesis"), dna.D)
+
+}
+
+func (w *Wizechain) GetGenesis() {
+
+}
+
+func (w *Wizechain) SetGenesis() {
+
+}
+
+func (w *Wizechain) CreateBlock() *Block {
+	return &Block{}
+}
+
+func (w *Wizechain) GetTip() {
+
+}
+
+func (w *Wizechain) GetEnd() {
 
 }
 
