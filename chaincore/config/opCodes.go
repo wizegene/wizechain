@@ -1,0 +1,71 @@
+package config
+
+const WizechainProtocolGUID = "32320c33-d6dd-4171-92c9-e35173fc7386"
+
+/*
+
+PREFIXES EXPLANATION
+
+0x5f = general commands
+0x7c = send
+0x5e = get
+0x7e = tx commands
+0x5b = chain related elements
+
+if command has more than 2 byte (0x1000 vs 0x10002)
+the last digit represents the version
+
+
+
+
+ */
+
+const (
+	VERSION        = 0x5f564552
+	VERACK         = 0x5f5641434b
+	ADDR           = 0x5f41444452
+	ADDRV2         = 0x5f4144445232
+	INV            = 0x5f494e56
+	MERKLEBLOCK    = 0x5f4d524b4c
+	PING           = 0x5f50494e47
+	PONG           = 0x5f504f4e47
+	FILTERLOAD     = 0x5f464c54474554
+	FILTERADD      = 0x5f464c5450555348
+	FILTERCLEAR    = 0x5f464c54434c52
+	FEEFILTER      = 0x5f464c54464545
+	CFILTER        = 0x5f464c5443
+	CFHEADERS      = 0x5f4643484452
+	CFCHECKPT      = 0x5f464343484b5054
+	AUTHORIZED = 0x5f415554484f4b
+	TX             = 0x7e3c3e
+	TXSTAKE          = 0x7e3c53544b
+	TXUNSTAKE        = 0x7e3e53544b
+	SENDHEADERS    = 0x7c3e484452
+	SENDADDRV2     = 0x7c3e4144445232
+	SENDCMPCT      = 0x7c3e434d504354
+	SENDUTCTIME = 0x7c3e555443
+	SENDVIAANONPROXYRELAY = 0x2d3e4150
+	GETDATA        = 0x5e3c64417441
+	GETBLOCKS      = 0x5e3c424c4b53
+	GETHEADERS     = 0x5e3c48445253
+	GETADDR        = 0x5e3c41444452
+	GETBLOCKTXN    = 0x5e3c424c4b3e7e
+	GETCFILTERS    = 0x5e3c43464c5452
+	GETCFHEADERS   = 0x5e3c4346484452
+	GETCFCHEKCPT   = 0x5e3c434643484b5054
+	GETVALIDATORS  = 0x5e3c56414c445452
+	HEADERS        = 0x5b484452
+	BLOCK          = 0x5b424c434b
+	MEMPOOL        = 0x5b6d506f6c
+	CMPCTBLOCK     = 0x5b636d7074626c6b
+	BLOCKTXN       = 0x5b626c6b7e
+	VALIDATOR = 0x5b76616c647472
+	NOTFOUND       = 0x4004
+	ERROR = 0x5000
+	UNAUTHORIZED = 0x599f
+	TIMENOTSYNC = 0x599e
+	NULL = 0xffff
+
+
+
+)

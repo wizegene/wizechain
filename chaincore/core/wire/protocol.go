@@ -30,7 +30,7 @@ type IMessageHeader interface {
 }
 
 type MessageHeader struct {
-	magic    []byte // 4 bytes
+	magic    [4]byte // 4 bytes
 	command  string
 	length   uint32
 	checksum [4]byte
@@ -51,7 +51,7 @@ type Message struct {
 	IMessage
 }
 
-func CreateMessage(w io.Writer, m Message, ver uint32, network []byte, encoding MessageEncoding) (int, error) {
+func CreateMessage(w io.Writer, m Message, ver uint32, network [4]byte, encoding MessageEncoding) (int, error) {
 
 	totalBytes := 0
 	var command [commandSize]byte
