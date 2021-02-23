@@ -5,9 +5,9 @@ import (
 )
 
 type Job struct {
-	name string
+	name     string
 	duration time.Duration
-	jobFunc func() error
+	jobFunc  func() error
 }
 
 type Jobs struct {
@@ -20,26 +20,26 @@ func (jobs *Jobs) executeJob(name string) error {
 	if err != nil {
 		return err
 	}
+	return nil
 }
 
 func createJob(name string, jobFunc func() error) {
-	job := &Job{name,nil,jobFunc}
+	job := &Job{name, nil, jobFunc}
 	jobs := &Jobs{make(map[string]*Job)}
 	jobs.j[name] = job
 }
 
 func CreateWorkersForJob(name string, maxQueueSize, maxWorkers, port int) {
 	var Jobs *Jobs
-	jobs := make(chan Job, maxQueueSize)
-	for i := 1; i<= maxWorkers; i++ {
+
+	for i := 1; i <= maxWorkers; i++ {
 		go func(i int) {
-			for j := range jobs {
-				err := Jobs.executeJob(name)
-				if err != nil {
-					panic(err)
-				}
+
+			err := Jobs.executeJob(name)
+			if err != nil {
+				panic(err)
 			}
+
 		}(i)
 	}
 }
-
