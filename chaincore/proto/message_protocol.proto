@@ -1,0 +1,39 @@
+syntax="proto3";
+
+package wire;
+
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/field_mask.proto";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+// Enable custom Marshal method.
+option (gogoproto.marshaler_all) = true;
+// Enable custom Unmarshal method.
+option (gogoproto.unmarshaler_all) = true;
+// Enable custom Size method (Required by Marshal and Unmarshal).
+option (gogoproto.sizer_all) = true;
+// Enable registration with golang/protobuf for the grpc-gateway.
+option (gogoproto.goproto_registration) = true;
+// Enable generation of XXX_MessageName methods for grpc-go/status.
+option (gogoproto.messagename_all) = true;
+
+message ProtocolMessage {
+
+  MessageHeader header = 1;
+
+}
+
+message MessageHeader {
+  bytes magic = 1 [(validator.field) = {msg_exists : true}];
+  string command = 2 [(validator.field) = {msg_exists : true}];
+  uint32 length = 3 [(validator.field) = {msg_exists : true}];
+  bytes checksum = 4 [(validator.field) = {msg_exists : true}];
+}
+
+service Wire {
+  rpc SendMessage(ProtocolMessage) returns (google.protobuf.Empty);
+  rpc ReadMessage(ProtocolMessage) returns (google.protobuf.Empty);
+}
