@@ -3,8 +3,6 @@ package core
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	blake2b "github.com/minio/blake2b-simd"
 	"math/rand"
 	"time"
@@ -216,7 +214,7 @@ func GetDNA(popSize uint) (dnaProof *DNARaw) {
 		generation++
 		bestOrganism := d.getBest(population)
 		elapsed = time.Since(startTime)
-		fmt.Printf("\r generation: %d | %s | fitness: %2f | elapsed: %2f", generation, string(bestOrganism.DNA), bestOrganism.Fitness, elapsed)
+		//fmt.Printf("\r generation: %d | %s | fitness: %2f | elapsed: %2f", generation, string(bestOrganism.DNA), bestOrganism.Fitness, elapsed)
 		dur, _ := time.ParseDuration("3s")
 
 		if bytes.Compare(bestOrganism.DNA, target) == 0 || elapsed.Seconds() <= dur.Seconds() {
@@ -245,9 +243,9 @@ func GetDNA(popSize uint) (dnaProof *DNARaw) {
 	}
 
 	//elapsed = time.Since(startTime)
-	fmt.Printf("\nTime taken: %s\n", elapsed)
+	//fmt.Printf("\nTime taken: %s\n", elapsed)
 
-	spew.Dump(dnaProof)
+	//spew.Dump(dnaProof)
 
 	return
 

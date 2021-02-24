@@ -1,4 +1,4 @@
-package slip10
+package tools
 
 import (
 	"bytes"
@@ -13,8 +13,8 @@ import (
 	"golang.org/x/crypto/ripemd160"
 )
 
-// BitcoinBase58Encoding is the encoding used for bitcoin addresses
-var BitcoinBase58Encoding = basen.NewEncoding("123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
+// WizegeneBase58Encoding is the encoding used for wizegene addresses
+var WizegeneBase58Encoding = basen.NewEncoding("wWzZiIbcdeghjklmnopqQrstuxy123456789ABCDEGHKLMOPRSTUVXYaFf")
 
 //
 // Hashes
@@ -87,11 +87,11 @@ func addChecksumToBytes(data []byte) ([]byte, error) {
 }
 
 func base58Encode(data []byte) string {
-	return BitcoinBase58Encoding.EncodeToString(data)
+	return WizegeneBase58Encoding.EncodeToString(data)
 }
 
 func base58Decode(data string) ([]byte, error) {
-	return BitcoinBase58Encoding.DecodeString(data)
+	return WizegeneBase58Encoding.DecodeString(data)
 }
 
 // Keys

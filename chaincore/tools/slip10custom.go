@@ -1,47 +1,33 @@
-package slip10
+package tools
 
 import (
 	"bytes"
-	"crypto/elliptic"
 	"crypto/hmac"
 	"crypto/rand"
 	"crypto/sha512"
 	"encoding/hex"
 	"errors"
-
 	btcutil "github.com/FactomProject/btcutilecc"
 )
 
 var (
-	// CurveBitcoin generates keys for the secp256k1 curve (equivalent to BIP32)
-	CurveBitcoin = &curve{
-		Curve:   btcutil.Secp256k1(),
-		hmacKey: []byte("Bitcoin seed"),
-	}
-
-	// CurveP256 generates keys for the NIST P-256 curve
-	CurveP256 = &curve{
-		Curve:   elliptic.P256(),
-		hmacKey: []byte("Nist256p1 seed"),
+	err           error
+	Curve         = btcutil.Secp256k1()
+	hmacKey       = []byte("together wizer")
+	CurveWizegene = &curve{
+		Curve:   Curve,
+		hmacKey: hmacKey,
 	}
 )
 
 const (
-	// FirstHardenedChild is the index of the firxt "harded" child key as per the
-	// bip32 spec
-	FirstHardenedChild = uint32(0x80000000)
-
-	// PublicKeyCompressedLength is the byte count of a compressed public key
+	FirstHardenedChild        = uint32(0x80000000)
 	PublicKeyCompressedLength = 33
 )
 
 var (
-	// PrivateWalletVersion is the version flag for serialized private keys
-	PrivateWalletVersion, _ = hex.DecodeString("0488ADE4")
-
-	// PublicWalletVersion is the version flag for serialized private keys
-	PublicWalletVersion, _ = hex.DecodeString("0488B21E")
-
+	PrivateWalletVersion, _ = hex.DecodeString(PrivPrefix)
+	PublicWalletVersion, _  = hex.DecodeString(PubPrefix)
 	// ErrSerializedKeyWrongSize is returned when trying to deserialize a key that
 	// has an incorrect length
 	ErrSerializedKeyWrongSize = errors.New("Serialized keys should by exactly 82 bytes")
@@ -61,6 +47,9 @@ var (
 	ErrInvalidPublicKey = errors.New("Invalid public key")
 )
 
+var PubPrefix = "0641BDE2"
+var PrivPrefix = "0631ADE1"
+
 // Key represents a bip32 extended key
 type Key struct {
 	Key         []byte // 33 bytes
@@ -76,12 +65,28 @@ type Key struct {
 
 // NewMasterKey creates a new Bitcoin master extended key from a seed
 func NewMasterKey(seed []byte) (*Key, error) {
-	return NewMasterKeyWithCurve(seed, CurveBitcoin)
+	hmac := hmac.New(sha512.New, []byte("ed25519 seed"))
+	if err != nil {
+		return nil, err
+	}
+	sum := hmac.Sum(nil)
+	key := &Key{
+		Version:     PrivateWalletVersion,
+		ChainCode:   sum[32:],
+		Key:         sum[:32],
+		Depth:       0x0,
+		ChildNumber: []byte{0x00, 0x00, 0x00, 0x00},
+		FingerPrint: []byte{0x00, 0x00, 0x00, 0x00},
+		IsPrivate:   true,
+		curve:       nil,
+	}
+	return key, nil
 }
 
 // NewMasterKey creates a new master extended key from a seed using the given curve
-func NewMasterKeyWithCurve(seed []byte, curve *curve) (*Key, error) {
+func NewMasterKeyWithCurve(seed []byte) (*Key, error) {
 	// Generate key and chaincode
+	curve := CurveWizegene
 	hmac := hmac.New(sha512.New, curve.hmacKey)
 	_, err := hmac.Write(seed)
 	if err != nil {
@@ -117,6 +122,7 @@ func NewMasterKeyWithCurve(seed []byte, curve *curve) (*Key, error) {
 // NewChildKey derives a child key from a given parent as outlined by bip32
 func (key *Key) NewChildKey(childIdx uint32) (*Key, error) {
 	// Fail early if trying to create hardned child from public key
+
 	if !key.IsPrivate && childIdx >= FirstHardenedChild {
 		return nil, ErrHardnedChildPublicKey
 	}
@@ -221,8 +227,8 @@ func (key *Key) PublicKey() *Key {
 
 // Serialize a Key to a 78 byte byte slice
 func (key *Key) Serialize() ([]byte, error) {
-	if key.curve != CurveBitcoin {
-		return nil, errors.New("serialization only supported for Bitcoin keys")
+	if key.curve != CurveWizegene {
+		return nil, errors.New("serialization only supported for Wizechain keys")
 	}
 
 	// Private keys should be prepended with a single null byte
@@ -275,7 +281,7 @@ func Deserialize(data []byte) (*Key, error) {
 	key.FingerPrint = data[5:9]
 	key.ChildNumber = data[9:13]
 	key.ChainCode = data[13:45]
-	key.curve = CurveBitcoin
+	key.curve = CurveWizegene
 
 	if data[45] == byte(0) {
 		key.IsPrivate = true
