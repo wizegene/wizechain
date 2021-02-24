@@ -82,7 +82,7 @@ func (am AddressManager) createWalletAddress(masterAddr *Address) *Address {
 	wAddress.index = masterAddr.index + 1
 	child, _ := masterAddr.rootKey.NewChildKey(wAddress.index)
 	wAddress.pubKey = child.PublicKey()
-	wAddress.key = child.PublicKey().String()
+	wAddress.key = Encode(child.PublicKey().Key, WizegeneAlphabet)
 	wAddress.rootKey = masterAddr.rootKey
 	wAddress.prefix = masterAddr.prefix
 	wAddress.seed = masterAddr.seed
@@ -141,7 +141,7 @@ func (am *AddressManager) NewAddressRing(network [4]byte, prefix [2]byte) *Addre
 }
 
 func (am *Address) ToString() string {
-	return am.rootKey.B58Serialize()
+	return am.key
 }
 
 func (am *Address) SeedToMnemonic() string {

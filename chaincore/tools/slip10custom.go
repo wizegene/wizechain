@@ -13,7 +13,7 @@ import (
 var (
 	err           error
 	Curve         = btcutil.Secp256k1()
-	hmacKey       = []byte("together wizer")
+	hmacKey       = []byte("Bitcoin seed")
 	CurveWizegene = &curve{
 		Curve:   Curve,
 		hmacKey: hmacKey,
@@ -47,8 +47,8 @@ var (
 	ErrInvalidPublicKey = errors.New("Invalid public key")
 )
 
-var PubPrefix = "0641BDE2"
-var PrivPrefix = "0631ADE1"
+var PubPrefix = "0488B21E"
+var PrivPrefix = "0488ADE4"
 
 // Key represents a bip32 extended key
 type Key struct {

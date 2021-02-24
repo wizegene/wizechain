@@ -2,9 +2,7 @@ package main
 
 import (
 	"chaincore/core"
-	"encoding/hex"
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/minio/blake2b-simd"
 )
 
@@ -17,12 +15,12 @@ func main() {
 	hash := blake2b.New256()
 	hash.Write(lastHashDummy)
 
-	block := core.CreateNewBlock(hex.EncodeToString(LocalPrefix4Byte[:]), hash.Sum(nil), 0, 1)
+	//block := core.CreateNewBlock(hex.EncodeToString(LocalPrefix4Byte[:]), hash.Sum(nil), 0, 1)
 
-	fmt.Printf("block:%s", block)
+	//fmt.Printf("block:%s", block)
 
 	addr := core.AM.NewAddressRing(LocalPrefix4Byte, [2]byte{0xff, 0xff})
-	spew.Dump(addr)
+	//spew.Dump(addr)
 
 	fmt.Println(addr.ToString())
 

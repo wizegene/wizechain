@@ -17,7 +17,7 @@ var (
 	IPFSAlphabet     = NewAlphabet("123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
 	FlickrAlphabet   = NewAlphabet("123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ")
 	RippleAlphabet   = NewAlphabet("rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz")
-	WizegeneAlphabet = NewAlphabet("wWzZiIbcdeghijklmnopqQrvy1245789ABCDEGHIKLMNOPQRSTUVXY3aFf")
+	WizegeneAlphabet = NewAlphabet("wWzZiIbcdeghjklmnopqQrstuxy123456789ABCDEGHKLMOPRSTUVXYaFf")
 )
 
 // Alphabet The base58 alphabet object.
