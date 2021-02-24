@@ -1,12 +1,14 @@
 package core
 
-import "chaincore/tools"
+import (
+	"chaincore/tools"
+)
 
 var (
-	AddrPrefixWallet = [2]byte{0x77,0x32}
-	AddrPrefixTX = [2]byte{0x74,0x31}
-	AddrPrefixBlock = [2]byte{0x62,0x31}
-	AddrPrefixContent = [2]byte{0x63,0x63}
+	AddrPrefixWallet  = [2]byte{0x77, 0x32}
+	AddrPrefixTX      = [2]byte{0x74, 0x31}
+	AddrPrefixBlock   = [2]byte{0x62, 0x31}
+	AddrPrefixContent = [2]byte{0x63, 0x63}
 )
 
 var LocalPrefix4Byte = [4]byte{0x06, 0x41, 0x02, 0x03}
@@ -14,12 +16,9 @@ var LivePrefix4Byte = [4]byte{0x06, 0x41, 0x02, 0x01}
 var TestPrefix4Byte = [4]byte{0x06, 0x41, 0x02, 0x02}
 var CurrencySymbol4Byte = [4]byte{0x57, 0x49, 0x5a, 0x45}
 
-
 const (
 	HDPurpose = "48"
 	HDNetwork = "Wizechain"
-
-
 )
 
 var HDRoleOwner = `0x0`
@@ -31,24 +30,23 @@ func CreateHDHierarchy(purpose, network, index, role, keyIndex string) string {
 
 	s := "m/" + purpose
 	s += "'/" + network
-	s += "'/"+index
-	s += "'/"+role
-	s += "'/"+keyIndex+"'"
+	s += "'/" + index
+	s += "'/" + role
+	s += "'/" + keyIndex + "'"
 
 	return s
 
 }
 
-
 type Address struct {
-	network [4]byte
-	prefix [2]byte
+	network  [4]byte
+	prefix   [2]byte
 	checksum [4]byte
-	pubKey *tools.Key
-	key string
-	rootKey *tools.Key
-	seed []byte
-	index uint32
+	pubKey   *tools.Key
+	key      string
+	rootKey  *tools.Key
+	seed     []byte
+	index    uint32
 }
 
 type IAddress interface {
@@ -66,7 +64,6 @@ type IAddress interface {
 
 type AddressManager struct {
 	IAddress
-
 }
 
 var AM AddressManager
@@ -81,19 +78,17 @@ func (am AddressManager) anonymize() bool { return false }
 
 func (am AddressManager) createWalletAddress(masterAddr *Address) *Address {
 
-
-
 	wAddress := &Address{}
-	wAddress.index = masterAddr.index+1
-	child, _ := CreateChildKey(masterAddr.rootKey, wAddress.index)
+	wAddress.index = masterAddr.index + 1
+	child, _ := masterAddr.rootKey.NewChildKey(wAddress.index)
 	wAddress.pubKey = child.PublicKey()
-	wAddress.key = child.B58Serialize()
+	wAddress.key = child.PublicKey().String()
 	wAddress.rootKey = masterAddr.rootKey
 	wAddress.prefix = masterAddr.prefix
 	wAddress.seed = masterAddr.seed
 
-
-	return wAddress }
+	return wAddress
+}
 
 func (am AddressManager) createTxAddress(key *tools.Key) *Address { return &Address{} }
 
@@ -113,7 +108,7 @@ func (am *AddressManager) NewAddressRing(network [4]byte, prefix [2]byte) *Addre
 	seed, _ := CreateSeedForKey()
 
 	// from the seed we create a master key for the new address keyring
-	master := CreateMasterKey(seed)
+	master, _ := tools.NewMasterKeyWithCurve(seed)
 	a := &Address{}
 
 	a.network = network
@@ -142,8 +137,6 @@ func (am *AddressManager) NewAddressRing(network [4]byte, prefix [2]byte) *Addre
 	default:
 		break
 	}*/
-
-
 
 }
 
