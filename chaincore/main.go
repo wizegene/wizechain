@@ -4,37 +4,21 @@ import (
 	"chaincore/core"
 	"fmt"
 	"github.com/minio/blake2b-simd"
+	"runtime"
 )
 
 func main() {
 
-	//payload := tools.GetGenesisPayload()
-	//spew.Dump(payload)
+	runtime.GOMAXPROCS(runtime.NumCPU() - 1)
 
 	lastHashDummy := make([]byte, 64)
 	hash := blake2b.New256()
 	hash.Write(lastHashDummy)
 
-	//block := core.CreateNewBlock(hex.EncodeToString(LocalPrefix4Byte[:]), hash.Sum(nil), 0, 1)
-
-	//fmt.Printf("block:%s", block)
-
 	addr := core.AM.NewAddressRing(LocalPrefix4Byte, [2]byte{0xff, 0xff})
-	//spew.Dump(addr)
 
 	fmt.Println(addr.ToString())
 
-	/*r := bytes.NewBuffer(make([]byte, 0))
-	var m wire.Message
-	total, _ := wire.CreateMessage(r, m, 1, LocalPrefix4Byte, wire.MessageEncoding(1))
-
-	if total > 0 {
-		fmt.Println(total)
-
-		b := r.Bytes()
-		spew.Dump(b)
-
-	}*/
 }
 
 // 4 byte network magics
