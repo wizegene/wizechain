@@ -23,4 +23,5 @@ var (
 	MaxCoinsPerYear            = MaxBlockPerYear * CoinsPerBlock
 	SecondsBetweenBlocks       = 31536000 / MaxBlockPerYear
 	StartingValuePerWizeInFiat = 0.01
+	WebsiteDomain              = "wizechain.com"
 )
