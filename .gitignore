@@ -3,3 +3,6 @@
 .secret
 *.key
 data
+vendor
+dict
+dna-server

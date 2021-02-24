@@ -1,23 +1,23 @@
 package core
 
-import (
-	slip10 "github.com/lmars/go-slip10"
-)
+import "chaincore/tools"
+
+	
 
 func CreateSeedForKey() ([]byte, error) {
 	// todo persist seed
-	seed, err := slip10.NewSeed()
+	seed, err := tools.NewSeed()
 	return seed, err
 }
 
-func CreateMasterKey(keySeed []byte) *slip10.Key {
+func CreateMasterKey(keySeed []byte) *tools.Key {
 
-	masterKey, _ := slip10.NewMasterKeyWithCurve(keySeed, slip10.CurveP256)
+	masterKey, _ := tools.NewMasterKeyWithCurve(keySeed)
 	return masterKey
 
 }
 
-func CreateChildKey(masterKey *slip10.Key, index uint32) (*slip10.Key, error) {
+func CreateChildKey(masterKey *tools.Key, index uint32) (*tools.Key, error) {
 	ck, err := masterKey.NewChildKey(index)
 	if err != nil {
 		ck, err = masterKey.NewChildKey(index + 1)
@@ -25,12 +25,12 @@ func CreateChildKey(masterKey *slip10.Key, index uint32) (*slip10.Key, error) {
 	return ck, err
 }
 
-func GetChildPubKey(childKey *slip10.Key) *slip10.Key {
+func GetChildPubKey(childKey *tools.Key) *tools.Key {
 
 	pub := childKey.PublicKey()
 	return pub
 }
 
-func verifyKey(data string) (*slip10.Key, error) {
-	return slip10.B58Deserialize(data)
+func verifyKey(data string) (*tools.Key, error) {
+	return tools.B58Deserialize(data)
 }
