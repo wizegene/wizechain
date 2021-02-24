@@ -1,2 +1,6 @@
-# wizechain
-Beta wizechain proposal language agnostic nothing workable here for now
+# wizechain 
+## its doge on steroids!
+### because together, we are wizer & stronger.
+
+
+
