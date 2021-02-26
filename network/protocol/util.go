@@ -2,7 +2,7 @@ package protocol
 
 import (
 	"WizechainFoundation/wizechain/network/identity"
-	"github.com/WizegeneFoundation/Cryptography/libs"
+	"github.com/WizegeneFoundation/wizechain/Cryptography/libs"
 )
 
 func IDFromBatch(batch [][]byte) identity.ID {
