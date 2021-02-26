@@ -2,9 +2,13 @@ package protocol
 
 import (
 	"WizechainFoundation/wizechain/network/identity"
-	"github.com/WizegeneFoundation/wizechain/Cryptography/libs"
+	"WizechainFoundation/wizechain/network/identity/libs"
+	"encoding/hex"
 )
 
 func IDFromBatch(batch [][]byte) identity.ID {
-	h := libs.GetKeccak256(batch...).String()
+	h := libs.GetKeccak256(batch)
+	hs := hex.EncodeToString(h)
+	return identity.ID(hs)
 }
+
