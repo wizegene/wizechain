@@ -1,10 +1,9 @@
-package crypto
+package identity
 
 import (
 	"crypto/ecdsa"
 	"crypto/elliptic"
 	"crypto/rand"
-
 )
 
 func GenerateECDSAKeys() (priv *ecdsa.PrivateKey, err error) {
