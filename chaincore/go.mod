@@ -12,6 +12,7 @@ require (
 	github.com/dgraph-io/badger/v3 v3.2011.1
 	github.com/golang/snappy v0.0.2 // indirect
 	github.com/google/go-cmp v0.5.4 // indirect
+	github.com/libp2p/go-libp2p v0.13.0 // indirect
 	github.com/mb-14/gomarkov v0.0.0-20210216094942-a5b484cc0243
 	github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1
 	github.com/stretchr/testify v1.7.0 // indirect
