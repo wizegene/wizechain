@@ -1,7 +1,7 @@
 package identity
 
 import (
-	"crypto"
+	"github.com/WizegeneFoundation/wizechain/crypto"
 	"crypto/ecdsa"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
