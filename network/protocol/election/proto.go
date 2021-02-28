@@ -4,7 +4,7 @@ import (
 	"WizechainFoundation/wizechain/network/identity"
 	"time"
 
-	msg "WizechainFoundation/wizechain/network/protocol/election/messages/messages.pb"
+	msg "WizechainFoundation/wizechain/network/protocol/election/messages"
 	"github.com/golang/protobuf/proto"
 )
 
