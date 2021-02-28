@@ -1,0 +1,26 @@
+syntax = "proto3";
+package wizechain.protocol.leader_election;
+
+message AggregationProposal {
+    string type = 1;
+    bytes id = 2;
+    Timestamp deadline = 3;
+}
+
+message Timestamp {
+    int64 sec = 1;
+    int64 nsec = 2;
+}
+
+message AggregationJob {
+    string type = 1;
+    repeated bytes subTrees = 2;
+    int64 label = 3;
+}
+
+message AggregationResult {
+    string type = 1;
+    bytes id = 2;
+    bytes result = 3;
+    int64 label = 4;
+}

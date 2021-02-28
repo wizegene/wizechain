@@ -7,15 +7,15 @@ import (
 )
 
 type Node struct {
-	Tree *protocol.Tree
-	Label int
-	AggregateProof []byte
-	mu sync.RWMutex
-	readiness int
-	arity int
+	Tree                  *protocol.Tree
+	Label                 int
+	AggregateProof        []byte
+	mu                    sync.RWMutex
+	readiness             int
+	arity                 int
 	hookOnReadinessUpdate NodeHook
 	hookOnRootProofUpdate NodeHook
-	Topic p2p.Topic
+	Topic                 p2p.Topic
 }
 
 func (n *Node) SetAggregateProof(aggregateProof []byte) {
@@ -48,7 +48,7 @@ func (n *Node) Job() *Job {
 
 	return &Job{
 		InputProofs: inputProofs,
-		label: n.Label,
+		label:       n.Label,
 	}
 }
 
@@ -63,9 +63,36 @@ func InitializeNodes(t *protocol.Tree, f, g NodeHook) {
 }
 
 func makeNodeInitializer() protocol.TreeFunc {
+	counter := protocol.MakeCounter() // Will be used to label the nodes with unique numbers
+	return func(t *protocol.Tree) {
 
+		arity := 0
+		if t.Children != nil {
+			arity = len(t.Children)
+		}
+
+		t.Node = &Node{
+			Tree:      t,
+			Label:     counter(), // Gives a unique label to each node
+			arity:     arity,
+			readiness: 0,
+		}
+	}
 }
 
-func makeNodeMapperByLabel() (protocol.TreeFunc, func() map[int]*Node) {
+/ makeHookOnReadinessUpdateApplier returns a TreeFunc setting the NodeHook
+func makeHookOnReadinessUpdateApplier(f NodeHook) protocol.TreeFunc {
+	return func(t *protocol.Tree) {
+		t.Node.(*Node).hookOnReadinessUpdate = f
+	}
+}
 
+// makeNodeMapperByLabel returns a map of node indexed by their label
+func makeNodeMapperByLabel() (protocol.TreeFunc, func() map[int]*Node) {
+	nodeMap := make(map[int]*Node)
+
+	mapNode := func(t *protocol.Tree) { nodeMap[t.Node.(*Node).Label] = t.Node.(*Node) }
+	getNodeMap := func() map[int]*Node { return nodeMap }
+
+	return mapNode, getNodeMap
 }
