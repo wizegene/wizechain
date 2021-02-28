@@ -3,6 +3,7 @@ module WizechainFoundation/wizechain/network
 go 1.16
 
 require (
+	github.com/davecgh/go-spew v1.1.1
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/protobuf v1.4.0
 	github.com/libp2p/go-libp2p v0.13.0
