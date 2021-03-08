@@ -84,7 +84,7 @@ func (s *State) CreateGenesisState(db *storm.DB) {
 		if err != nil {
 			panic(err)
 		}
-		spew.Dump(states)
+		//spew.Dump(states)
 
 	}
 }
