@@ -15,9 +15,12 @@ func main() {
 	hash := blake2b.New256()
 	hash.Write(lastHashDummy)
 
+	info := core.GetDogeBalance()
+
 	addr := core.AM.NewAddressRing(LocalPrefix4Byte, [2]byte{0xff, 0xff})
 
 	fmt.Println(addr.ToString())
+	fmt.Printf("doge value: %s", string(info.Usd_value))
 
 }
 

@@ -6,7 +6,8 @@
     },
     "currency": {
         "name": "wize",
-        "max_supply": -1
+        "max_supply": -1,
+        "logo": "https://ipfs.bewize.org/logo.png"
     },
     "validators": [],
     "super_validators": [],
