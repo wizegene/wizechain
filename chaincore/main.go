@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/minio/blake2b-simd"
 	"runtime"
+	"strconv"
 )
 
 func main() {
@@ -20,7 +21,11 @@ func main() {
 	addr := core.AM.NewAddressRing(LocalPrefix4Byte, [2]byte{0xff, 0xff})
 
 	fmt.Println(addr.ToString())
-	fmt.Printf("doge value: %s", string(info.Usd_value))
+	fmt.Printf("doge value: %v\n", info.Usd_value)
+	fmt.Printf("liquidities: %s\n", info.Liquidity_balance)
+	fbal, _ := strconv.ParseFloat(info.Liquidity_balance, 10)
+
+	fmt.Printf("liq value: USD$ %v\n", float32(fbal)*info.Usd_value)
 
 }
 
