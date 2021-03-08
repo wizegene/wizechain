@@ -2,21 +2,23 @@ package core
 
 import (
 	db "chaincore/database"
+	"encoding/hex"
 	"sync"
-	"time"
 )
 
 var masterSeed []byte
 var err error
 
 type Wizechain struct {
-	mu           *sync.Mutex
-	ID           string
-	Chaincode    string
-	Version      string
-	Blocks       []*Block
-	BlockHeaders []*BlockHeader
-	memPool      map[string][]byte
+	mu                *sync.Mutex
+	ID                string
+	Chaincode         string
+	Version           string
+	Blocks            []*Block
+	BlockHeaders      []*BlockHeader
+	MasterFingerPrint string
+	MasterDNA         string
+	memPool           map[string][]byte
 	IWizechain
 }
 
@@ -50,10 +52,10 @@ func NewWizeChain() *Wizechain {
 }
 
 func (w *Wizechain) initNewChain(id string, chaincode string, version string) {
-	ChainDB := db.InitDB(id + "/" + chaincode + "_" + version)
+	ChainDB := db.InitDB(id + "/" + chaincode + "_" + version + ".db")
 
 	defer ChainDB.Close()
-	db.Insert([]byte("_chain__initialization_time"), []byte(time.Now().String()))
+
 	masterSeed, err = CreateSeedForKey()
 	w.memPool["master_seed"] = masterSeed
 	if err != nil {
@@ -64,9 +66,15 @@ func (w *Wizechain) initNewChain(id string, chaincode string, version string) {
 	w.memPool["master_key"] = []byte(masterKey.B58Serialize())
 
 	ms := masterKey.FingerPrint
-	db.Insert([]byte("_chain__master_key_genesis"), ms)
+
 	dna := GetDNA(5000)
-	db.Insert([]byte("_chain__master_dna_genesis"), dna.D)
+
+	w.MasterDNA = hex.EncodeToString(dna.D)
+	w.MasterFingerPrint = hex.EncodeToString(ms)
+	err := ChainDB.Save(w)
+	if err != nil {
+		panic(err)
+	}
 
 }
 

@@ -1,0 +1,15 @@
+{
+    "genesis_time": "2020-03-07T00:00:00.00000000Z",
+    "chain_id": "32320c33-d6dd-4171-92c9-e35173fc7386",
+    "balances": {
+        "DrkjsMvSTfVEAdmYUx/urTWkepn03u0gXeSvgRIPl2E=": 1000000
+    },
+    "currency": {
+        "name": "wize",
+        "max_supply": -1
+    },
+    "validators": {"none":0},
+    "super_validators": {"none":0},
+    "liquidity_pool": {"doge":1000}
+    
+}

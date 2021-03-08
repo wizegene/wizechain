@@ -1,15 +1,14 @@
 package database
 
 import (
-	"chaincore/config"
-	badger "github.com/dgraph-io/badger/v3"
+	"github.com/asdine/storm/v3"
 )
 
-var db *badger.DB
+var db *storm.DB
 var err error
 
-func InitDB(dbDir string) *badger.DB {
-	db, err = badger.Open(badger.DefaultOptions(config.BadgerDBDir + "/" + dbDir))
+func InitDB(dbDir string) *storm.DB {
+	db, err = storm.Open(dbDir)
 	if err != nil {
 		panic(err)
 	}
@@ -17,35 +16,5 @@ func InitDB(dbDir string) *badger.DB {
 }
 
 type Database struct {
-	db *badger.DB
-}
-
-func Insert(key []byte, value []byte) error {
-	defer db.Close()
-	err := db.Update(func(txn *badger.Txn) error {
-		return txn.Set(key, value)
-	})
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func FetchByKey(key []byte) ([]byte, error) {
-	defer db.Close()
-
-	var itemString string
-	_ = db.View(func(txn *badger.Txn) error {
-		Item, err := txn.Get(key)
-		if err != nil {
-			return err
-		}
-		itemString = Item.String()
-		return nil
-
-	})
-	if err != nil {
-		return nil, err
-	}
-	return []byte(itemString), nil
+	db *storm.DB
 }
