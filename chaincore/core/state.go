@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/asdine/storm/v3"
-	"github.com/davecgh/go-spew/spew"
+
 	lru "github.com/karlseguin/ccache/v2"
 )
 
