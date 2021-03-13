@@ -1,9 +1,9 @@
 package main
 
 import (
-	"chaincore/core"
 	"fmt"
 	"github.com/minio/blake2b-simd"
+	"github.com/wizegene/wizechain/chaincore/core"
 	"runtime"
 	"strconv"
 )
