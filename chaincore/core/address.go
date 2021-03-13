@@ -1,7 +1,7 @@
 package core
 
 import (
-	"chaincore/tools"
+	"github.com/wizegene/wizechain/chaincore/tools"
 )
 
 var (
