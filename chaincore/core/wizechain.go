@@ -1,8 +1,8 @@
 package core
 
 import (
-	db "chaincore/database"
 	"encoding/hex"
+	db "github.com/wizegene/wizechain/chaincore/database"
 	"sync"
 )
 

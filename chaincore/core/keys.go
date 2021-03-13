@@ -1,8 +1,6 @@
 package core
 
-import "chaincore/tools"
-
-	
+import "github.com/wizegene/wizechain/chaincore/tools"
 
 func CreateSeedForKey() ([]byte, error) {
 	// todo persist seed

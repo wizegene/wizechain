@@ -3,11 +3,11 @@ package core
 import (
 	"encoding/hex"
 	"encoding/json"
+	"github.com/beevik/ntp"
 	"github.com/minio/blake2b-simd"
 	"log"
 	"sync"
 )
-import "github.com/beevik/ntp"
 
 type IBlock interface {
 	serialize() []byte
