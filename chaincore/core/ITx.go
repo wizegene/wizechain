@@ -58,7 +58,12 @@ func (t *Inputs) IsStakingReward() bool {
 
 func CreateGenesisTransaction() {
 
-	g := LoadGenesisFromJSON()
+	g, err := CreateGenesisBlock()
+
+	if err != nil {
+		panic(err)
+	}
+
 	tx := new(Transaction)
 	tx.IsCoinbase = true
 	input := new(Inputs)
