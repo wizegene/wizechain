@@ -1,15 +1,26 @@
 {
-    "genesis_time": "2020-03-07T00:00:00.00000000Z",
-    "chain_id": "32320c33-d6dd-4171-92c9-e35173fc7386",
-    "balances": {
-        "DrkjsMvSTfVEAdmYUx/urTWkepn03u0gXeSvgRIPl2E=": 1000000
-    },
-    "currency": {
-        "name": "wize",
-        "max_supply": -1
-    },
-    "validators": {"none":0},
-    "super_validators": {"none":0},
-    "liquidity_pool": {"doge":1000}
-    
+  "genesis_time": 1615698564359051568,
+  "chain_id": "d8ba206f-32e6-4a23-98ee-25f944f5d2fa",
+  "balances": {},
+  "currency": {
+    "Name": "WIZECOIN",
+    "max_supply": -1
+  },
+  "pos_parameters": {
+    "MinValidators": 3,
+    "MaxValidators": 4999,
+    "Quorum": 0.33,
+    "MaxValidatorPower": 0,
+    "ChangeLeaderFreq": 0,
+    "StartingRewardPerValidator": 0.0001,
+    "StartingRewardAsCurrency": 0.01,
+    "InflationaryRate": 0.00000201873385,
+    "DeflationaryRate": 0
+  },
+  "blocks_parameters": {
+    "MaxBlockPerYear": 10000000,
+    "CoinsPerBlock": 100,
+    "MaxCoinsPerYear": 0,
+    "MaxSecPerBlock": 3
+  }
 }
