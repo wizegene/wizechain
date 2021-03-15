@@ -122,3 +122,11 @@ func CreateNewBlock(chainId string, lastHash []byte, lastBlockId uint32, version
 	newBlock.setPayload()
 	return newBlock.serialize()
 }
+
+func CreateRawBlock(chainId string, lastHash []byte, lastBlockId uint32, version uint32) *Block {
+	B := &Block{}
+	newBlock := B.CreateBlankBlock(chainId, lastHash, lastBlockId, version)
+	newBlock.setBlockHash()
+	newBlock.setPayload()
+	return newBlock
+}
