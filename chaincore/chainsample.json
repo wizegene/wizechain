@@ -1,0 +1,31 @@
+{
+  "ID": "68e695df-5f77-4b53-a3ba-036c788fa950",
+  "Chaincode": "",
+  "Version": "",
+  "Blocks": [
+    {
+      "Header": {
+        "Id": 1,
+        "ChainID": "68e695df-5f77-4b53-a3ba-036c788fa950",
+        "Version": 1,
+        "Height": 1,
+        "Hash": "ff1d25e0ad101a15874fbc1b439e024bccad8d5e80e31456f4d5ec87754c3bf037c4e42f0c96c1a4b3cd3c7f1145526a974922c78e205a07149b382d21d639a0",
+        "MerkleRoot": null,
+        "Dna": "4a71013167a34fa6619415563332ea4f760b41b8a829bd5fd3df18e6aa31e1eac413bafac71145b1bb5d6e3287282db3cacc7d67bcbd82bdd163ca78aabb79d2",
+        "PrevHash": null,
+        "Timestamp": 0
+      },
+      "BlockVersion": 1,
+      "Tx": [],
+      "Payload": "emxVZnBrRDNSRnFwMjdnR2VBMWJ1VXkyWjFLTFFuaUhlTUg0UDlQVnhZb2p3ZVpNZDFWVWxmYmZCRDlHSzZ3c00zV01mTzN5N3dlYnFFMmR0UnJ6NGJWMTRhYnl0QUYzSWlGZFRXd3JHSGtDQUN0c0hncUlDQUd4RUZhWWNXbndUZXRXeXlLemFUR3JNQzl4T2Q0WDZaZzU5a2Q0akFQTzhMcVJPcTllWWxDTVlqR2lsdDlGWlhEOXRLNHRFeWd6aUN6UXJ0cUtnam5vOUxjS3lYamhRVUw2aGJDUW5tYVFLa0lHZmpDd2JSNXFkcnB0OG5ZWUlSY1l3WWhIcDFrSFA1eEFxNE1obGprY3h5MXFkNmxxWXlZQ2N6R0Y0ZXRkbUNRMWQ2dFhMNVc4V2RSZURhOGgzVVhjNG9RUEFNbERoNW03N3hGeDMxaVdScm5QRnRXcHNtWnN1T3IyV3RzMWRXQ0t3Ym9aRFhXZktSaktsZEN5UG5QRnhXd2o2OENtQUtGaFoxaUc3VWkzeGtRMVdadUZ3Z3FmejZ6MlFneGR0WHM1bU9HZVFtMTdLTUIxbWdEVlgxdTRaeHMxZUJJclFTcjZLWTRPOTM2dWNCQ2M3VWtjOTlDdUlSdGJndVdGRGxGVVRCaTcyY1VDcmxQWUdjRUFkVWZPQkR3b1E4RXFmMlBrN3hsNXlsZlg0dENZMUM2b1JTUTI0UThJTHRkRG11SThHaUxQYk9BdDNrY3E0cWJBbWZXT1VoTEJ4aTNqUGhkMzVTa1BLbFRDRDlUeWZpd1VDbTZDdXI4ZHNQY09EVFM0VTI0a21vTGU2MVhQbktTSVRvOUhtRmRCaXJYTUFvczFvRlE0OHhZbVVPbHFSR1B5b3FrT0VLU0g4UHdQVzZueDVid2tjRGUzOFdoZFl6bWRIUTh0TEl0NlNxRmJ3WlFHMzVLY1lDV0dGdDE3dUdsZ01vN21DM1hLNFJNbmJrRVlQb2JvdUJSWkQ=",
+      "RightBlocks": [],
+      "LeftBlocks": [],
+      "Created": 1616009273814325800,
+      "ElapsedSinceCreation": 807617713
+    }
+  ],
+  "BlockHeaders": null,
+  "MasterFingerPrint": "00000000",
+  "MasterDNA": "22e79f0b38f73e2c054dc658f1cf525b10a29918fc432ddfe73fb4a6303f4a4d0ad704dc4bc772d5b87f5808075ec8389877cd0911c1ebe6b9ec8660cbcb1bfc",
+  "IWizechain": null
+}

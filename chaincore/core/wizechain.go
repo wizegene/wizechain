@@ -47,14 +47,14 @@ type IWizechain interface {
 	getMedianTXTime()
 }
 
-func NewWizeChain(id, chaincode, version string) *Wizechain {
+func NewWizeChain(chaincode, version string) *Wizechain {
 
 	var ws Wizechain
-	return ws.initNewChain(id, chaincode, version)
+	return ws.initNewChain(chaincode, version)
 }
 
-func (w *Wizechain) initNewChain(id string, chaincode string, version string) *Wizechain {
-	ChainDB := db.InitDB(id + "/" + chaincode + "_" + version + ".db")
+func (w *Wizechain) initNewChain(chaincode string, version string) *Wizechain {
+	ChainDB := db.InitDB(chaincode + "_" + version + ".db")
 
 	defer ChainDB.Close()
 	w.memPool = make(map[string][]byte, 0)
@@ -93,7 +93,9 @@ func (w *Wizechain) SetGenesis() {
 	var block Block
 	ser, _ := ioutil.ReadFile("./config/in_block.json")
 	_ = json.Unmarshal(ser, &block)
-	w.Blocks[0] = &block
+	w.Blocks = make([]*Block, 0)
+	w.Blocks = append(w.Blocks, &block)
+	w.ID = block.Header.ChainID
 }
 
 func (w *Wizechain) CreateBlock() {

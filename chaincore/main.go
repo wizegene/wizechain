@@ -1,18 +1,18 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/minio/blake2b-simd"
+
 	"github.com/wizegene/wizechain/chaincore/core"
 	"runtime"
-	"strconv"
 )
 
 func main() {
 
 	runtime.GOMAXPROCS(runtime.NumCPU() - 1)
 
-	lastHashDummy := make([]byte, 64)
+	/*lastHashDummy := make([]byte, 64)
 	hash := blake2b.New256()
 	hash.Write(lastHashDummy)
 
@@ -25,7 +25,10 @@ func main() {
 	fmt.Printf("liquidities: %s\n", info.Liquidity_balance)
 	fbal, _ := strconv.ParseFloat(info.Liquidity_balance, 10)
 
-	fmt.Printf("liq value: USD$ %v\n", float32(fbal)*info.Usd_value)
+	fmt.Printf("liq value: USD$ %v\n", float32(fbal)*info.Usd_value)*/
+	w := core.NewWizeChain("d8ba206f-32e6-4a23-98ee-25f944f5d2fa", "1")
+	serW, _ := json.Marshal(w)
+	fmt.Printf("%s", serW)
 
 }
 
