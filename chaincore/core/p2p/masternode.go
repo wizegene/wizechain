@@ -54,8 +54,8 @@ type MasterNode struct {
 	status                   chan bool
 	maxChildrens             int
 	maxTotalPeersWithinGroup int
-	maxServerLoad            float32
-	currentServerLoad        chan float32
+	maxServerLoad            float64
+	currentServerLoad        float64
 	maxCPUs                  int
 	maxMem                   float32
 	localTime                time.Time
@@ -72,7 +72,7 @@ func NewMasterNode() *MasterNode {
 
 	mn.rawHost = rawHost
 	mn.configure("wize_1", "wize_1", "0.0.0.0", "5565", 2, 2, nil, true)
-	GetCPUStats()
+	mn.currentServerLoad = GetLoadAverage()
 	return mn
 
 }
@@ -142,7 +142,6 @@ func (m *MasterNode) configure(mastername, networkid, host, port string, maxChil
 	m.maxCPUs = runtime.NumCPU() - 1
 	m.maxMem = 4096
 	m.maxServerLoad = 10.0
-	m.currentServerLoad = make(chan float32, 0)
 	m.localTime = new(time.Time).Local()
 
 	kdht, err := dht.New(m.Context, m.rawHost)

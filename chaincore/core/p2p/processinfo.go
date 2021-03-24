@@ -3,6 +3,7 @@ package p2p
 import (
 	linuxproc "github.com/c9s/goprocinfo/linux"
 	"github.com/davecgh/go-spew/spew"
+	"github.com/shirou/gopsutil/load"
 	"log"
 )
 
@@ -20,4 +21,10 @@ func GetCPUStats() {
 		// s.IOWait
 		spew.Dump(s)
 	}
+}
+
+func GetLoadAverage() float64 {
+	load, _ := load.Avg()
+	return load.Load1
+
 }
