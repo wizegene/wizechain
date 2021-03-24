@@ -8,18 +8,18 @@ require (
 	github.com/asdine/storm/v3 v3.2.1
 	github.com/beevik/ntp v0.3.0
 	github.com/btcsuite/btcd v0.21.0-beta // indirect
+	github.com/c9s/goprocinfo v0.0.0-20210130143923-c95fcf8c64a8
 	github.com/cmars/basen v0.0.0-20150613233007-fe3947df716e // indirect
+	github.com/davecgh/go-spew v1.1.1
 	github.com/gorilla/mux v1.8.0
 	github.com/ipfs/go-log v1.0.4
 	github.com/karlseguin/ccache/v2 v2.0.8
 	github.com/libp2p/go-conn-security-multistream v0.2.0
 	github.com/libp2p/go-libp2p v0.13.0
 	github.com/libp2p/go-libp2p-core v0.8.0
-	github.com/libp2p/go-libp2p-discovery v0.5.0
 	github.com/libp2p/go-libp2p-kad-dht v0.11.1
-	github.com/libp2p/go-libp2p-netutil v0.1.0
+	github.com/libp2p/go-libp2p-pubsub v0.4.1
 	github.com/libp2p/go-libp2p-swarm v0.4.0
-	github.com/libp2p/go-libp2p-transport-upgrader v0.4.0
 	github.com/libp2p/go-libp2p-yamux v0.5.1
 	github.com/libp2p/go-stream-muxer-multistream v0.3.0
 	github.com/mb-14/gomarkov v0.0.0-20210216094942-a5b484cc0243

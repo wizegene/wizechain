@@ -10,25 +10,30 @@ import (
 	"github.com/libp2p/go-libp2p-core/host"
 	"github.com/libp2p/go-libp2p-core/network"
 	"github.com/libp2p/go-libp2p-core/peer"
-	discovery "github.com/libp2p/go-libp2p-discovery"
-	"github.com/wizegene/wizechain/chaincore/core/p2p/handlers"
-	"os"
+	"github.com/libp2p/go-libp2p/p2p/discovery"
 
 	dht "github.com/libp2p/go-libp2p-kad-dht"
+	pubsub "github.com/libp2p/go-libp2p-pubsub"
 	ma "github.com/multiformats/go-multiaddr"
 	"github.com/wizegene/wizechain/chaincore/core"
+	"github.com/wizegene/wizechain/chaincore/core/p2p/handlers"
+	"os"
 	"runtime"
-	"sync"
+
 	"time"
 )
 
 var logger = log.Logger("rendezvous")
 
+const DiscoveryInterval = time.Minute
+
 type MasterNode struct {
 	ID                       peer.ID
 	Addrs                    []ma.Multiaddr
+	Bootstrapper             *Bootstrapping
 	rawHost                  host.Host
 	Context                  context.Context
+	PubSub                   *pubsub.PubSub
 	NetworkID                string
 	MasterName               string
 	MasterServices           map[string]bool
@@ -58,25 +63,54 @@ type MasterNode struct {
 }
 
 func NewMasterNode() *MasterNode {
-	return &MasterNode{}
 
-}
-
-func (m *MasterNode) create(mastername, networkid, host, port string, maxChildrens,
-	maxTotalPeers int, servicesAvailable []string, acceptConnsOnStart bool) {
-
-	m.configure(mastername, networkid, host, port, maxChildrens,
-		maxTotalPeers, servicesAvailable, acceptConnsOnStart)
-
-	h, err := libp2p.New(m.Context, libp2p.ListenAddrStrings("/ip4/"+m.Host+"/tcp/"+m.Port))
+	mn := &MasterNode{}
+	rawHost, err := libp2p.New(context.Background(), libp2p.ListenAddrStrings("/ip4/0.0.0.0/tcp/9000"))
 	if err != nil {
 		panic(err)
 	}
-	defer h.Close()
-	m.HostID = h.ID().String()
-	m.ID = h.ID()
-	m.Addrs = h.Addrs()
-	m.rawHost = h
+
+	mn.rawHost = rawHost
+	mn.configure("wize_1", "wize_1", "0.0.0.0", "5565", 2, 2, nil, true)
+	GetCPUStats()
+	return mn
+
+}
+
+func (m *MasterNode) newGossipPubSub() {
+	ps, err := pubsub.NewGossipSub(m.Context, m.rawHost)
+	if err != nil {
+		panic(err)
+	}
+	m.PubSub = ps
+}
+
+type discoveryNotifee struct {
+	h host.Host
+}
+
+func (d *discoveryNotifee) HandlePeerFound(pi peer.AddrInfo) {
+	fmt.Printf("discovered new peer %s\n", pi.ID.Pretty())
+	err := d.h.Connect(context.Background(), pi)
+	if err != nil {
+		fmt.Printf("error connecting to peer %s: %s\n", pi.ID.Pretty(), err)
+	}
+}
+
+func (m *MasterNode) discoverServices() (err error) {
+
+	var disc discovery.Service
+
+	for service, _ := range m.MasterServices {
+
+		disc, err = discovery.NewMdnsService(m.Context, m.rawHost, DiscoveryInterval, service)
+		if err != nil {
+			return
+		}
+		n := discoveryNotifee{h: m.rawHost}
+		disc.RegisterNotifee(&n)
+	}
+	return nil
 
 }
 
@@ -130,75 +164,6 @@ func (m *MasterNode) connectToOtherMasterNode(peerAddr string) {
 		panic(err)
 	}
 	m.connectedMasterNodes[peerAddr] = true
-
-}
-
-func (m *MasterNode) bootstrapNode(addrs []string) {
-
-	m.rawHost.SetStreamHandler("sync", handleStream)
-
-	if err := m.DHT.Bootstrap(m.Context); err != nil {
-		panic(err)
-	}
-
-	var wg sync.WaitGroup
-
-	for _, peerAddr := range addrs {
-		addr, _ := ma.NewMultiaddr(peerAddr)
-		peerinfo, _ := peer.AddrInfoFromP2pAddr(addr)
-		wg.Add(1)
-		go func() {
-
-			defer wg.Done()
-			if err := m.rawHost.Connect(m.Context, *peerinfo); err != nil {
-				logger.Debug(err)
-			} else {
-				logger.Info("Connection established with bootstrap node:", *peerinfo)
-			}
-
-		}()
-	}
-	wg.Wait()
-
-	logger.Info("announcing the masternode...")
-	routingDiscovery := discovery.NewRoutingDiscovery(m.DHT)
-	discovery.Advertise(m.Context, routingDiscovery, m.NetworkID)
-	logger.Info("masternode announced, continuing...")
-	peerChan, err := routingDiscovery.FindPeers(m.Context, m.NetworkID)
-	if err != nil {
-		panic(err)
-	}
-
-	for peer := range peerChan {
-		if peer.ID == m.rawHost.ID() {
-			continue
-		}
-
-		if m.maxTotalPeersWithinGroup <= len(m.ChildrenNodes) {
-			logger.Warn("max number of peers within group reached", len(m.ChildrenNodes))
-			continue
-		}
-
-		if m.MasterServices["fullnode"] == false {
-			continue
-		}
-
-		logger.Debug("found other peer:", peer)
-		logger.Debug("connecting to peer:", peer)
-
-		logger.Info("will try to synchronize the wizechain network")
-
-		stream, err := m.rawHost.NewStream(m.Context, peer.ID, "sync")
-		if err != nil {
-			logger.Warn("connection failed:", err)
-			continue
-		}
-
-		rw := bufio.NewReadWriter(bufio.NewReader(stream), bufio.NewWriter(stream))
-		readData(rw)
-		writeData(rw)
-
-	}
 
 }
 

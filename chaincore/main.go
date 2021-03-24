@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/wizegene/wizechain/chaincore/core/p2p"
 
 	"github.com/wizegene/wizechain/chaincore/core"
 	"runtime"
@@ -29,6 +30,7 @@ func main() {
 	w := core.NewWizeChain("d8ba206f-32e6-4a23-98ee-25f944f5d2fa", "1")
 	serW, _ := json.Marshal(w)
 	fmt.Printf("%s", serW)
+	p2p.NewMasterNode()
 
 }
 
