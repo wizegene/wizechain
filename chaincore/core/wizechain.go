@@ -22,7 +22,6 @@ type Wizechain struct {
 	MasterFingerPrint string
 	MasterDNA         string
 	memPool           map[string][]byte
-	IWizechain
 }
 
 type IWizechain interface {

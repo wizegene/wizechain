@@ -1,8 +1,7 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
+	"github.com/davecgh/go-spew/spew"
 	"github.com/wizegene/wizechain/chaincore/core/p2p"
 
 	"github.com/wizegene/wizechain/chaincore/core"
@@ -28,9 +27,10 @@ func main() {
 
 	fmt.Printf("liq value: USD$ %v\n", float32(fbal)*info.Usd_value)*/
 	w := core.NewWizeChain("d8ba206f-32e6-4a23-98ee-25f944f5d2fa", "1")
-	serW, _ := json.Marshal(w)
-	fmt.Printf("%s", serW)
-	p2p.NewMasterNode()
+
+	m := p2p.NewMasterNode()
+	spew.Dump(m.MasterName)
+	spew.Dump(w)
 
 }
 

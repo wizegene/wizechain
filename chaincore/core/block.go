@@ -61,7 +61,7 @@ func (b *Block) CreateBlankBlock(
 
 	// we get the UTC time from the NTP server to make sure the chain is using a neutral / trustable time
 
-	timestamp, err := ntp.Time("pool.ntp.org")
+	timestamp, err := ntp.Time("0.ca.pool.ntp.org")
 	if err != nil {
 		log.Fatalf("time server (NTP) error! : %v", err)
 	}

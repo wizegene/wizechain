@@ -10,11 +10,13 @@ import (
 	"github.com/libp2p/go-libp2p-core/host"
 	"github.com/libp2p/go-libp2p-core/network"
 	"github.com/libp2p/go-libp2p-core/peer"
+	noise "github.com/libp2p/go-libp2p-noise"
 	"github.com/libp2p/go-libp2p/p2p/discovery"
 
 	dht "github.com/libp2p/go-libp2p-kad-dht"
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
 	ma "github.com/multiformats/go-multiaddr"
+	"github.com/rogpeppe/fastuuid"
 	"github.com/wizegene/wizechain/chaincore/core"
 	"github.com/wizegene/wizechain/chaincore/core/p2p/handlers"
 	"os"
@@ -64,14 +66,16 @@ type MasterNode struct {
 
 func NewMasterNode() *MasterNode {
 
+	name := fastuuid.MustNewGenerator().Hex128()
 	mn := &MasterNode{}
 	rawHost, err := libp2p.New(context.Background(), libp2p.ListenAddrStrings("/ip4/0.0.0.0/tcp/9000"))
+	libp2p.ChainOptions(libp2p.DefaultSecurity, libp2p.Security(noise.ID, noise.New))
 	if err != nil {
 		panic(err)
 	}
 
 	mn.rawHost = rawHost
-	mn.configure("wize_1", "wize_1", "0.0.0.0", "5565", 2, 2, nil, true)
+	mn.configure(name, "wize_1", "0.0.0.0", "5565", 2, 2, nil, true)
 	mn.currentServerLoad = GetLoadAverage()
 	return mn
 
