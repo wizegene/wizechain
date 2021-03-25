@@ -1,18 +1,18 @@
 package main
 
 import (
-	"fmt"
-	"github.com/minio/blake2b-simd"
+	"github.com/davecgh/go-spew/spew"
+	"github.com/wizegene/wizechain/chaincore/core/p2p"
+
 	"github.com/wizegene/wizechain/chaincore/core"
 	"runtime"
-	"strconv"
 )
 
 func main() {
 
 	runtime.GOMAXPROCS(runtime.NumCPU() - 1)
 
-	lastHashDummy := make([]byte, 64)
+	/*lastHashDummy := make([]byte, 64)
 	hash := blake2b.New256()
 	hash.Write(lastHashDummy)
 
@@ -25,7 +25,12 @@ func main() {
 	fmt.Printf("liquidities: %s\n", info.Liquidity_balance)
 	fbal, _ := strconv.ParseFloat(info.Liquidity_balance, 10)
 
-	fmt.Printf("liq value: USD$ %v\n", float32(fbal)*info.Usd_value)
+	fmt.Printf("liq value: USD$ %v\n", float32(fbal)*info.Usd_value)*/
+	w := core.NewWizeChain("d8ba206f-32e6-4a23-98ee-25f944f5d2fa", "1")
+
+	m := p2p.NewMasterNode()
+	spew.Dump(m.MasterName)
+	spew.Dump(w)
 
 }
 
