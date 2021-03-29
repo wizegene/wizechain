@@ -20,6 +20,7 @@ require (
 	github.com/libp2p/go-libp2p v0.13.0
 	github.com/libp2p/go-libp2p-core v0.8.0
 	github.com/libp2p/go-libp2p-kad-dht v0.11.1
+	github.com/libp2p/go-libp2p-noise v0.1.1
 	github.com/libp2p/go-libp2p-pubsub v0.4.1
 	github.com/libp2p/go-libp2p-swarm v0.4.0
 	github.com/libp2p/go-libp2p-yamux v0.5.1
@@ -27,9 +28,12 @@ require (
 	github.com/mb-14/gomarkov v0.0.0-20210216094942-a5b484cc0243
 	github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1
 	github.com/multiformats/go-multiaddr v0.3.1
+	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/rogpeppe/fastuuid v1.2.0
 	github.com/shirou/gopsutil v3.21.2+incompatible
 	github.com/stevenroose/go-bitcoin-core-rpc v0.0.0-20181021223752-1f5e57e12ba1
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
+	golang.org/x/net v0.0.0-20191105084925-a882066a44e0
 	launchpad.net/gocheck v0.0.0-20140225173054-000000000087 // indirect
+	lukechampine.com/blake3 v1.1.5
 )
