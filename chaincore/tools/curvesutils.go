@@ -11,6 +11,7 @@ import (
 
 	"github.com/FactomProject/basen"
 	"golang.org/x/crypto/ripemd160"
+	"lukechampine.com/blake3"
 )
 
 // WizegeneBase58Encoding is the encoding used for wizegene addresses
@@ -197,4 +198,30 @@ func uint32Bytes(i uint32) []byte {
 	bytes := make([]byte, 4)
 	binary.BigEndian.PutUint32(bytes, i)
 	return bytes
+}
+
+//
+// BLAKE3 (testing might use)
+//
+func ToBlake3Hash(data []byte) []byte {
+
+	h := blake3.Sum256(data)
+	return h[:]
+
+}
+
+func ToBlake3Key(data []byte, key []byte) []byte {
+
+	h := blake3.New(len(data), key)
+	_, _ = h.Write(data)
+	return h.Sum(nil)
+
+}
+
+func KeyDerivationFromBlake3(context string, key []byte) []byte {
+
+	var newKey []byte
+	blake3.DeriveKey(newKey, context, key)
+	return newKey
+
 }
